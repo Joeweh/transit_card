@@ -60,18 +60,27 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    iconSize: 40,
-                    icon: const Icon(
-                      Icons.language,
+                  TextButton(
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons.language,
+                          size: 37,
+                          color: Color.fromRGBO(154, 221, 255, 1),
+                        ),
+                        Text(
+                          'Explore',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-
-                    },
-                  ),
-                  const Text(
-                    'Explore',
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -91,18 +100,27 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    iconSize: 40,
-                    icon: const Icon(
-                      Icons.verified,
+                  TextButton(
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons.verified,
+                          size: 37,
+                          color: Color.fromRGBO(154, 221, 255, 1),
+                        ),
+                        Text(
+                          'Points',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-
-                    },
-                  ),
-                  const Text(
-                    'Points',
+                    onPressed: () {},
                   ),
                 ],
               ),
