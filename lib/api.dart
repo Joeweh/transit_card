@@ -1,54 +1,21 @@
-import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:uuid/uuid.dart';
 
 class GWalletAPI {
-  static String formatRequest() {
-    const loyaltyClassDef =
-    """
-    {
-      "id": "ISSUER_ID.LOYALTY_CLASS_ID",
-      "programLogo": {
-        "sourceUri": {
-          "uri": "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=660&h=660"
-        },
-        "contentDescription": {
-          "defaultValue": {
-            "language": "en-US",
-            "value": "LOGO_IMAGE_DESCRIPTION"
-          }
-        }
-      },
-      "localizedIssuerName": {
-        "defaultValue": {
-          "language": "en-US",
-          "value": "[TEST ONLY] Heraldic Coffee"
-        }
-      },
-      "localizedProgramName": {
-        "defaultValue": {
-          "language": "en-US",
-          "value": "Heraldic Rewards"
-        }
-      },
-      "hexBackgroundColor": "#72461d",
-      "heroImage": {
-        "sourceUri": {
-          "uri": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&h=336"
-        },
-        "contentDescription": {
-          "defaultValue": {
-            "language": "en-US",
-            "value": "HERO_IMAGE_DESCRIPTION"
-          }
-        }
-      }
-    }
-    """;
+  static final _objectId = const Uuid().v4();
 
-    const loyaltyObjectDef =
+  static String formatRequest() {
+    final issuerId = dotenv.env['GOOGLE_WALLET_ISSUER_ID'];
+    final passClass = dotenv.env['GOOGLE_WALLET_PASS_CLASS'];
+    final serviceAccountEmail = dotenv.env['GOOGLE_CLOUD_SERVICE_ACCOUNT'];
+    final iat = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+    final loyaltyObjectDef =
     """
     {
-      "id": "ISSUER_ID.OBJECT_ID",
-      "classId": "ISSUER_ID.LOYALTY_CLASS_ID",
+      "id": "$issuerId.$_objectId",
+      "classId": "$issuerId.$passClass",
+      "state": "ACTIVE",
       "loyaltyPoints": {
         "balance": {
           "int": "1234"
@@ -68,21 +35,24 @@ class GWalletAPI {
     }
     """;
 
-    final request = <String, dynamic> {
-      "iss": "",
+    final request =
+    """ 
+    {
+      "iss": $serviceAccountEmail,
       "aud": "google",
       "typ": "savetowallet",
-      "origins": [],
+      "iat": $iat,
+      "origins": [
+        "https://localhost:8080"
+      ],
       "payload": {
         "loyaltyObjects": [
-          jsonDecode(loyaltyObjectDef)
-        ],
-        "loyaltyClasses": [
-          jsonDecode(loyaltyClassDef)
-        ],
+          $loyaltyObjectDef
+        ]
       }
-    };
+    }
+    """;
 
-    return jsonEncode(request);
+    return request;
   }
 }
