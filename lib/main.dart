@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:transit_card/home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_wallet/google_wallet.dart';
 import 'package:transit_card/api.dart';
@@ -17,25 +19,11 @@ class MyApp extends StatelessWidget {
     final wallet = GoogleWallet();
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add_card),
-              onPressed: () async {
-
-              },
-            ),
-          ],
-        ),
-        body: GoogleWalletButton(
-          style: GoogleWalletButtonStyle.condensed,
-          onPressed: () async {
-            await wallet.savePasses(GWalletAPI.formatRequest());
-          },
-        ),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromRGBO(218, 218, 218, 1.0),
+        useMaterial3: true,
       ),
+      home: const HomePage(),
     );
   }
 }
