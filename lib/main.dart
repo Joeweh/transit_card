@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transit_card/home.dart';
+import 'package:transit_card/auth_ui.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromRGBO(218, 218, 218, 1.0),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AuthUI(),
       debugShowCheckedModeBanner: false,
     );
   }
