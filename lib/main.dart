@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transit_card/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color.fromRGBO(218, 218, 218, 1.0),
         useMaterial3: true,
       ),
-      home: const Placeholder(),
+      home: const HomePage(),
     );
   }
 }
