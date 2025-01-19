@@ -18,19 +18,14 @@ class GWalletAPI {
       "state": "ACTIVE",
       "loyaltyPoints": {
         "balance": {
-          "int": "1234"
+          "int": "2530"
         },
         "localizedLabel": {
           "defaultValue": {
             "language": "en-US",
-            "value": "Reward Points"
+            "value": "Portal Points"
           }
         }
-      },
-      "barcode": {
-        "type": "QR_CODE",
-        "value": "BARCODE_VALUE",
-        "alternateText": ""
       }
     }
     """;
